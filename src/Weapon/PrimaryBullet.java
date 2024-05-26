@@ -9,8 +9,8 @@ public class PrimaryBullet extends Bullet {
 
     public PrimaryBullet() throws IOException {
         super();
-        x = 200;
-        y = 100;
+        x = -200;
+        y = -100;
         IMG = ImageIO.read(new File("src/Textures/Bullets/PrimaryBullet.png"));
     }
 }

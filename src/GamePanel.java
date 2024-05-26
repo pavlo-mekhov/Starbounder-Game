@@ -1,3 +1,4 @@
+import Constants.Images.*;
 import Weapon.*;
 import Constants.*;
 
@@ -16,9 +17,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     int previousGameStatus;
     Weapon weapon;
     PrimaryWeapon primaryWeapon = new PrimaryWeapon();
+    Thread PWThread = new Thread(primaryWeapon);
     SpecialWeapon specialWeapon = new SpecialWeapon();
-    Thread childThread = new Thread(specialWeapon);
+    Thread SWThread = new Thread(specialWeapon);
     HeavyWeapon heavyWeapon = new HeavyWeapon();
+    Thread HWThread = new Thread(heavyWeapon);
+
 
     boolean isRunning;
     Timer timer;
@@ -30,14 +34,16 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     }
 
 
-
     public void startGame() {
         isRunning = true;
         timer = new Timer(30, this);
         timer.start();
         gameStatus = 1;
-        weapon = specialWeapon;
-        childThread.start();
+        guardian.image = GuardianWOW.IMG_Standing_Still_Right_WOJet;
+        weapon = primaryWeapon;
+        PWThread.start();
+        SWThread.start();
+        HWThread.start();
     }
 
 
@@ -46,7 +52,9 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         super.paintComponent(g);
         if (gameStatus == 1) {
             g.setColor(new Color(64, 90, 156));
-            g.fillRect(0,0,Constants.SCREEN_WIDTH, 735);
+            g.fillRect(0, 0, Constants.SCREEN_WIDTH, 735);
+//            ImageIcon iconBGGif = new ImageIcon("src/Textures/Background/gifBG1.gif");
+//            g.drawImage(iconBGGif.getImage(), 0,0,this);
             g.setColor(Color.BLACK);
             g.fillRect(0, 730, Constants.SCREEN_WIDTH, 170);
             g.drawImage(guardian.image, guardian.x, guardian.y, this);
@@ -57,20 +65,17 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             for (int i = 0; i < specialWeapon.bullets.length; i++) {
                 g.drawImage(specialWeapon.bullets[i].IMG, specialWeapon.bullets[i].x, specialWeapon.bullets[i].y, this);
             }
+            for (int i = 0; i < heavyWeapon.bullets.length; i++) {
+                g.drawImage(heavyWeapon.bullets[i].IMG, heavyWeapon.bullets[i].x, heavyWeapon.bullets[i].y, this);
+            }
 
             g.setFont(new Font("Bauhaus 93", Font.BOLD, 23));
             g.setColor(Color.BLACK);
-            g.drawString(primaryWeapon.ammoInMagazine + " / ∞" , 1401, 75);
+            g.drawString(primaryWeapon.ammoInMagazine + " / ∞", 1401, 75);
             g.drawString("  " + specialWeapon.ammoInMagazine + " / " + specialWeapon.ammoTotal, 1400, 100);
             g.drawString("    " + heavyWeapon.ammoInMagazine + " / " + heavyWeapon.ammoTotal, 1403, 125);
 
-//            if (weapon.equals(primaryWeapon)) {
-//                g.drawString(weapon.ammoInMagazine + " / ∞" , 1400, 75);
-//            } else if (weapon.equals(specialWeapon)){
-//                g.drawString(weapon.ammoInMagazine + " / " + weapon.ammoTotal, 1400, 100);
-//            } else {
-//                g.drawString(weapon.ammoInMagazine + " / " + weapon.ammoTotal, 1400, 125);
-//            }
+
         } else if (gameStatus == 0) {
             g.setColor(Color.ORANGE);
             ImageIcon gifBG = new ImageIcon("src/Textures/gif.gif");
@@ -94,29 +99,22 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 case KeyEvent.VK_D -> {
                     guardian.isFlyingRight = true;
                     guardian.isFlyingLeft = false;
-                    guardian.image = guardian.IMG_Flying_Right;
                     guardian.lastAction = 0;
                 }
                 case KeyEvent.VK_A -> {
                     guardian.isFlyingLeft = true;
                     guardian.isFlyingRight = false;
-                    guardian.image = guardian.IMG_Flying_Left;
                     guardian.lastAction = 9;
                 }
-                case KeyEvent.VK_W -> {
+                case KeyEvent.VK_W ->
                     guardian.isFlyingUp = true;
-                    if (guardian.lastAction == 0) {
-                        guardian.image = guardian.IMG_Flying_Right;
-                    } else {
-                        guardian.image = guardian.IMG_Flying_Left;
-                    }
+                case KeyEvent.VK_S -> {
+                    guardian.isCrouching = true;
                 }
-                case KeyEvent.VK_R -> {
+                case KeyEvent.VK_R ->
                     weapon.reload();
-                }
-                case KeyEvent.VK_1 -> {
+                case KeyEvent.VK_1 ->
                     weapon = primaryWeapon;
-                }
                 case KeyEvent.VK_2 -> {
                     weapon = specialWeapon;
                 }
@@ -128,8 +126,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                     gameStatus = 0;
                 }
                 case KeyEvent.VK_L -> {
-
-                    weapon.shoot(guardian.x, guardian.y);
+                    weapon.shoot(guardian.x, guardian.y, guardian.lastAction);
                 }
             }
             repaint();
@@ -152,8 +149,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             case KeyEvent.VK_D -> {
                 guardian.isFlyingRight = false;
             }
-            case KeyEvent.VK_A-> {
+            case KeyEvent.VK_A -> {
                 guardian.isFlyingLeft = false;
+            }
+            case KeyEvent.VK_S -> {
+                guardian.isCrouching = false;
             }
         }
     }
@@ -169,58 +169,217 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 if (guardian.y < 310 && !guardian.isFlyingUp) {
                     guardian.y += 23;
                     repaint();
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException ex) {
-                        throw new RuntimeException(ex);
-                    }
                 }
                 if (guardian.isFlyingUp) {
                     if (guardian.y > 0) {
-                        guardian.y -=9;
+                        guardian.y -= 9;
                         repaint();
                     }
                 }
                 if (guardian.isFlyingLeft) {
-                    guardian.x -=9;
+                    guardian.x -= 9;
                     repaint();
                 } else if (guardian.isFlyingRight) {
                     guardian.x += 9;
                     repaint();
-                } else if (guardian.lastAction == 0 && !guardian.isFlyingUp) {
-                    guardian.image = guardian.IMG_Standing_Still_Right_WJet;
-                    repaint();
-                } else if (guardian.lastAction == 9 && !guardian.isFlyingUp) {
-                    guardian.image = guardian.IMG_Standing_Still_Left_WJet;
-                    repaint();
                 }
-                for (Bullet bullet: primaryWeapon.bullets) {
-                    if (bullet.isFlying) {
-                        bullet.x +=30;
+                if (weapon != null) {
+                    if (weapon.equals(primaryWeapon)) {
+                        if (guardian.isFlyingRight) {
+                            if (weapon.isShooting)
+                                guardian.image = GuardianPW.IMG_Flying_Right_Shooting;
+                            else
+                                guardian.image = GuardianPW.IMG_Flying_Right;
+                        } else if (guardian.isFlyingLeft) {
+                            if (weapon.isShooting)
+                                guardian.image = GuardianPW.IMG_Flying_Left_Shooting;
+                            else
+                                guardian.image = GuardianPW.IMG_Flying_Left;
+                        } else if (guardian.isFlyingUp) {
+                            if (guardian.lastAction == 0 || guardian.lastAction == 10 || guardian.lastAction == 50) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianPW.IMG_Flying_Right_Shooting;
+                                else
+                                    guardian.image = GuardianPW.IMG_Flying_Right;
+                            } else if (guardian.lastAction == 9 || guardian.lastAction == 19 || guardian.lastAction == 59) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianPW.IMG_Flying_Left_Shooting;
+                                else
+                                    guardian.image = GuardianPW.IMG_Flying_Left;
+                            }
+                        } else if (guardian.isCrouching) {
+                            if (guardian.lastAction == 0 || guardian.lastAction == 10 || guardian.lastAction == 50) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianPW.IMG_50_WJet_Shooting;
+                                else
+                                    guardian.image = GuardianPW.IMG_50_WJet;
+                                guardian.lastAction = 50;
+                            } else if (guardian.lastAction == 9 || guardian.lastAction == 19 || guardian.lastAction == 59) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianPW.IMG_59_WJet_Shooting;
+                                else
+                                    guardian.image = GuardianPW.IMG_59_WJet;
+                                guardian.lastAction = 59;
+                            }
+                        } else {
+                            if (guardian.lastAction == 0 || guardian.lastAction == 10 || guardian.lastAction == 50) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianPW.IMG_10_WJet_Shooting;
+                                else
+                                    guardian.image = GuardianPW.IMG_10_WJet;
+                                guardian.lastAction = 10;
+                            } else if (guardian.lastAction == 9 || guardian.lastAction == 19 || guardian.lastAction == 59) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianPW.IMG_19_WJet_Shooting;
+                                else
+                                    guardian.image = GuardianPW.IMG_19_WJet;
+                                guardian.lastAction = 19;
+                            }
+                        }
                         repaint();
-                    } if (bullet.x > 1700) {
+                    } else if (weapon.equals(specialWeapon)) {
+                        if (guardian.isFlyingRight) {
+                            if (weapon.isShooting)
+                                guardian.image = GuardianSW.IMG_Flying_Right_Shooting;
+                            else
+                                guardian.image = GuardianSW.IMG_Flying_Right;
+                        } else if (guardian.isFlyingLeft) {
+                            if (weapon.isShooting)
+                                guardian.image = GuardianSW.IMG_Flying_Left_Shooting;
+                            else
+                                guardian.image = GuardianSW.IMG_Flying_Left;
+                        } else if (guardian.isFlyingUp) {
+                            if (guardian.lastAction == 0 || guardian.lastAction == 10 || guardian.lastAction == 50) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianSW.IMG_Flying_Right_Shooting;
+                                else
+                                    guardian.image = GuardianSW.IMG_Flying_Right;
+                            } else if (guardian.lastAction == 9 || guardian.lastAction == 19|| guardian.lastAction == 59) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianSW.IMG_Flying_Left_Shooting;
+                                else
+                                    guardian.image = GuardianSW.IMG_Flying_Left;
+                            }
+                        } else if (guardian.isCrouching) {
+                            if (guardian.lastAction == 0 || guardian.lastAction == 10 || guardian.lastAction == 50) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianSW.IMG_50_WJet_Shooting;
+                                else
+                                    guardian.image = GuardianSW.IMG_50_WJet;
+                                guardian.lastAction = 50;
+                            } else if (guardian.lastAction == 9 || guardian.lastAction == 19 || guardian.lastAction == 59) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianSW.IMG_59_WJet_Shooting;
+                                else
+                                    guardian.image = GuardianSW.IMG_59_WJet;
+                                guardian.lastAction = 59;
+                            }
+                        } else {
+                            if (guardian.lastAction == 0 || guardian.lastAction == 10 || guardian.lastAction == 50) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianSW.IMG_10_WJet_Shooting;
+                                else
+                                    guardian.image = GuardianSW.IMG_10_WJet;
+                                guardian.lastAction = 10;
+                            } else if (guardian.lastAction == 9 || guardian.lastAction == 19 || guardian.lastAction == 59) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianSW.IMG_19_WJet_Shooting;
+                                else
+                                    guardian.image = GuardianSW.IMG_19_WJet;
+                                guardian.lastAction = 19;
+                            }
+                        }
+                        repaint();
+                    } else if (weapon.equals(heavyWeapon)) {
+                        if (guardian.isFlyingRight) {
+                            if (weapon.isShooting)
+                                guardian.image = GuardianHW.IMG_Flying_Right_Shooting;
+                            else
+                                guardian.image = GuardianHW.IMG_Flying_Right;
+                        } else if (guardian.isFlyingLeft) {
+                            if (weapon.isShooting)
+                                guardian.image = GuardianHW.IMG_Flying_Left_Shooting;
+                            else
+                                guardian.image = GuardianHW.IMG_Flying_Left;
+                        } else if (guardian.isFlyingUp) {
+                            if (guardian.lastAction == 0 || guardian.lastAction == 10 || guardian.lastAction == 50) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianHW.IMG_Flying_Right_Shooting;
+                                else
+                                    guardian.image = GuardianHW.IMG_Flying_Right;
+                            } else if (guardian.lastAction == 9 || guardian.lastAction == 19 || guardian.lastAction == 59) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianHW.IMG_Flying_Left_Shooting;
+                                else
+                                    guardian.image = GuardianHW.IMG_Flying_Left;
+                            }
+                        } else if (guardian.isCrouching) {
+                            if (guardian.lastAction == 0 || guardian.lastAction == 10 || guardian.lastAction == 50) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianHW.IMG_50_WJet_Shooting;
+                                else
+                                    guardian.image = GuardianHW.IMG_50_WJet;
+                                guardian.lastAction = 50;
+                            } else if (guardian.lastAction == 9 || guardian.lastAction == 19 || guardian.lastAction == 59) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianHW.IMG_59_WJet_Shooting;
+                                else
+                                    guardian.image = GuardianHW.IMG_59_WJet;
+                                guardian.lastAction = 59;
+                            }
+                        } else {
+                            if (guardian.lastAction == 0 || guardian.lastAction == 10 || guardian.lastAction == 50) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianHW.IMG_10_WJet_Shooting;
+                                else
+                                    guardian.image = GuardianHW.IMG_10_WJet;
+                                guardian.lastAction = 10;
+                            } else if (guardian.lastAction == 9 || guardian.lastAction == 19 || guardian.lastAction == 59) {
+                                if (weapon.isShooting)
+                                    guardian.image = GuardianHW.IMG_19_WJet_Shooting;
+                                else
+                                    guardian.image = GuardianHW.IMG_19_WJet;
+                                guardian.lastAction = 19;
+                            }
+                        }
+                        repaint();
+                    }
+                } else {
+
+                }
+                for (Bullet bullet : primaryWeapon.bullets) {
+                    if (bullet.isFlying) {
+                        bullet.x += 30;
+                        repaint();
+                    }
+                    if (bullet.x > 1700) {
+                        bullet.explode();
                         bullet.isFlying = false;
-                        bullet.x = 10;
+                        bullet.x = -100;
                         repaint();
                     }
                 }
-                for (Bullet bullet: specialWeapon.bullets) {
+                for (Bullet bullet : specialWeapon.bullets) {
                     if (bullet.isFlying) {
-                        bullet.x +=30;
+                        bullet.x += 30;
                         repaint();
-                    } if (bullet.x > 1700) {
+                    }
+                    if (bullet.x > 1700) {
+                        bullet.explode();
                         bullet.isFlying = false;
-                        bullet.x = 10;
+                        bullet.x = -100;
                         repaint();
                     }
                 }
-                for (Bullet bullet: heavyWeapon.bullets) {
+                for (Bullet bullet : heavyWeapon.bullets) {
                     if (bullet.isFlying) {
-                        bullet.x +=30;
+                        bullet.x += 30;
+                        bullet.y = (int) ((0.00032) *Math.pow((bullet.x*1.0 - (bullet.iX)), 2.0) + bullet.iY);
                         repaint();
-                    } if (bullet.x > 1700) {
-                        bullet.isFlying = false;
-                        bullet.x = 10;
+                    }
+                    if (bullet.y > 730 || bullet.x > 1700) {
+                        bullet.explode();
+                        bullet.y = -100;
                         repaint();
                     }
                 }

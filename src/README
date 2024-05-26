@@ -1,0 +1,10 @@
+Last action/guardian state codes (+explanation)
+    0 - right direction, if doesn't have anything before = Flying_Right (Shift 0 is ")", looks like an arrow right)
+    9 - left direction, if doesn't have anything before = Flying_Left (Shift 9 is "(", looks like an arrow left)
+    1* - standing still + direction
+    5* - crouching + direction
+
+    PW - Primary Weapon, first slot
+    SW - Special Weapon, second slot
+    HW - Heavy Weapon, third slot
+    WOW - Without Weapon

@@ -4,60 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e4f7c80-916e-4945-b84a-50c68c161dfb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/README" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/Crouching_Left_WJet.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/Crouching_Right_WJet.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/HW_Crouching_Left_WJet.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/HW_Crouching_Left_WJet_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/HW_Crouching_Right_WJet.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/HW_Crouching_Right_WJet_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/HW_Flying_Left.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/HW_Flying_Left_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/HW_Flying_Right.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/HW_Flying_Right_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/HW_Standing_Still_Left_WJet.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/HW_Standing_Still_Left_WJet_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/HW_Standing_Still_Right_WJet.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/HW_Standing_Still_Right_WJet_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/PW_Crouching_Left_WJet.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/PW_Crouching_Left_WJet_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/PW_Crouching_Right_WJet.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/PW_Crouching_Right_WJet_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/PW_Flying_Left.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/PW_Flying_Left_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/PW_Flying_Right.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/PW_Flying_Right_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/PW_Standing_Still_Left_WJet.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/PW_Standing_Still_Left_WJet_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/PW_Standing_Still_Right_WJet_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/SW_Crouching_Left_WJet.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/SW_Crouching_Left_WJet_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/SW_Crouching_Right_WJet.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/SW_Crouching_Right_WJet_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/SW_Flying_Left.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/SW_Flying_Left_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/SW_Flying_Right.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/SW_Flying_Right_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/SW_Standing_Still_Left_WJet.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/SW_Standing_Still_Left_WJet_Shooting.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/SW_Standing_Still_Right_WJet.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/SW_Standing_Still_Right_WJet_Shooting.PNG" afterDir="false" />
+    <list default="true" id="0e4f7c80-916e-4945-b84a-50c68c161dfb" name="Changes" comment="Icons, shooting, reloading">
+      <change afterPath="$PROJECT_DIR$/src/Constants/Images/Background.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Mobs/Mob.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Mobs/Shank.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Background/BackgroundMoon.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Background/BackgroundMoonL.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Background/WeaponSelectHW.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Background/WeaponSelectPW.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Background/WeaponSelectSW.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Background/WeaponSelectWOW.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Bullets/HeavyBullet.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants/Images/GuardianHW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Images/GuardianHW.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants/Images/GuardianPW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Images/GuardianPW.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants/Images/GuardianSW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Images/GuardianSW.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants/Images/GuardianWOW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Images/GuardianWOW.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Guardian.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Guardian.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Weapon/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Weapon/Bullet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Weapon/HeavyBullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Weapon/HeavyBullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Weapon/HeavyWeapon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Weapon/HeavyWeapon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Weapon/PrimaryBullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Weapon/PrimaryBullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Weapon/PrimaryWeapon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Weapon/PrimaryWeapon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Weapon/SpecialBullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Weapon/SpecialBullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Weapon/SpecialWeapon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Weapon/SpecialWeapon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Weapon/Weapon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Weapon/Weapon.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,6 +74,14 @@
       <option name="presentableId" value="Default" />
       <updated>1715950915389</updated>
     </task>
+    <task id="LOCAL-00001" summary="Icons, shooting, reloading">
+      <created>1716764838621</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1716764838621</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -138,5 +106,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Icons, shooting, reloading" />
+    <option name="LAST_COMMIT_MESSAGE" value="Icons, shooting, reloading" />
   </component>
 </project>

@@ -13,6 +13,8 @@ import java.io.IOException;
 public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
     Guardian guardian = new Guardian();
+    int BGX = - 700;
+    int BGY = -50;
     int gameStatus; //1 - running, 0 - escape menu
     int previousGameStatus;
     Weapon weapon;
@@ -51,11 +53,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (gameStatus == 1) {
-            g.setColor(new Color(64, 90, 156));
-            g.fillRect(0, 0, Constants.SCREEN_WIDTH, 735);
+            g.drawImage(Background.Background_Moon, BGX, BGY, this);
+//            g.setColor(new Color(64, 90, 156));
+//            g.fillRect(0, 0, Constants.SCREEN_WIDTH, 735);
 //            ImageIcon iconBGGif = new ImageIcon("src/Textures/Background/gifBG1.gif");
 //            g.drawImage(iconBGGif.getImage(), 0,0,this);
-            g.setColor(Color.BLACK);
+            g.setColor(new Color(54, 31, 6));
             g.fillRect(0, 730, Constants.SCREEN_WIDTH, 170);
             g.drawImage(guardian.image, guardian.x, guardian.y, this);
 
@@ -69,11 +72,23 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 g.drawImage(heavyWeapon.bullets[i].IMG, heavyWeapon.bullets[i].x, heavyWeapon.bullets[i].y, this);
             }
 
-            g.setFont(new Font("Bauhaus 93", Font.BOLD, 23));
+            if (weapon == null) {
+
+            } else if (weapon.equals(primaryWeapon)) {
+                g.drawImage(Background.Weapon_Select_PW, 20, 20, this);
+            } else if (weapon.equals(specialWeapon)) {
+                g.drawImage(Background.Weapon_Select_SW, 20, 20, this);
+            } else if (weapon.equals(heavyWeapon)) {
+                g.drawImage(Background.Weapon_Select_HW, 20, 20, this);
+            }
+
+            g.setFont(new Font("Bauhaus 93", Font.BOLD, 20));
             g.setColor(Color.BLACK);
-            g.drawString(primaryWeapon.ammoInMagazine + " / ∞", 1401, 75);
-            g.drawString("  " + specialWeapon.ammoInMagazine + " / " + specialWeapon.ammoTotal, 1400, 100);
-            g.drawString("    " + heavyWeapon.ammoInMagazine + " / " + heavyWeapon.ammoTotal, 1403, 125);
+            g.drawString(primaryWeapon.ammoInMagazine + " / ∞", 190, 80);
+            g.drawString("  " + specialWeapon.ammoInMagazine + " / " + specialWeapon.ammoTotal, 190, 140);
+            g.drawString("   " + heavyWeapon.ammoInMagazine + " / " + heavyWeapon.ammoTotal, 190, 205);
+
+
 
 
         } else if (gameStatus == 0) {
@@ -167,20 +182,25 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         if (isRunning) {
             if (gameStatus == 1) {
                 if (guardian.y < 310 && !guardian.isFlyingUp) {
-                    guardian.y += 23;
+                    guardian.y += 21;
+                    BGY -= 3;
+
                     repaint();
                 }
                 if (guardian.isFlyingUp) {
                     if (guardian.y > 0) {
-                        guardian.y -= 9;
+                        guardian.y -= 7;
+                        BGY++;
                         repaint();
                     }
                 }
                 if (guardian.isFlyingLeft) {
-                    guardian.x -= 9;
+                    guardian.x -= 7;
+                    BGX+=2;
                     repaint();
                 } else if (guardian.isFlyingRight) {
                     guardian.x += 9;
+                    BGX-=2;
                     repaint();
                 }
                 if (weapon != null) {

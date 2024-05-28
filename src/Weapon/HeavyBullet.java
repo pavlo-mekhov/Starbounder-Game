@@ -15,5 +15,6 @@ public class HeavyBullet extends Bullet {
     @Override
     public void explode() {
         super.explode();
+
     }
 }

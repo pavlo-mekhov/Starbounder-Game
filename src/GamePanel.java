@@ -1,4 +1,5 @@
 import Constants.Images.*;
+import Mobs.SmallShank;
 import Weapon.*;
 import Constants.*;
 
@@ -13,8 +14,10 @@ import java.io.IOException;
 public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
     Guardian guardian = new Guardian();
-    int BGX = - 700;
-    int BGY = -50;
+    int BGX = -700;
+    int BGY = -10;
+    int GX = -700;
+    int GY = 730;
     int gameStatus; //1 - running, 0 - escape menu
     int previousGameStatus;
     Weapon weapon;
@@ -24,6 +27,36 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     Thread SWThread = new Thread(specialWeapon);
     HeavyWeapon heavyWeapon = new HeavyWeapon();
     Thread HWThread = new Thread(heavyWeapon);
+    SmallShank[] shanks = new SmallShank[4];
+
+    Thread mobSpawn = new Thread(() -> {
+        while (true) {
+            if (gameStatus == 1) {
+
+            }
+        }
+    });
+
+    Thread damageCheck = new Thread(() -> {
+        while (true) {
+            System.out.println("");
+            if (gameStatus == 1) {
+                for (Bullet bullet: primaryWeapon.bullets) {
+                    for (SmallShank shank:shanks) {
+                        if (bullet.x >= shank.x + 13 && bullet.x <= shank.x + 180 && bullet.y >= shank.y + 50 && bullet.y <= shank.y + 140) {
+                            shank.currentHealth -= 24;
+                            bullet.explode();
+                        }
+                    }
+                }
+                for (SmallShank shank:shanks) {
+                    if (shank.currentHealth <= 0) {
+                        shank.explode();
+                    }
+                }
+            }
+        }
+    });
 
 
     boolean isRunning;
@@ -40,12 +73,24 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         isRunning = true;
         timer = new Timer(30, this);
         timer.start();
-        gameStatus = 1;
         guardian.image = GuardianWOW.IMG_Standing_Still_Right_WOJet;
         weapon = primaryWeapon;
         PWThread.start();
         SWThread.start();
         HWThread.start();
+        mobSpawn.start();
+        damageCheck.start();
+
+        for (int i = 0; i < shanks.length; i++) {
+            shanks[i] = new SmallShank((i * 150) + 50, i+1);
+        }
+
+        new Thread(shanks[0]).start();
+        new Thread(shanks[1]).start();
+        new Thread(shanks[2]).start();
+        new Thread(shanks[3]).start();
+
+        gameStatus = 1;
     }
 
 
@@ -53,13 +98,14 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (gameStatus == 1) {
+            g.setColor(new Color(6, 0 ,15));
+            g.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT/2);
+            g.setColor(new Color(9, 0 ,22));
+            g.fillRect(0, Constants.SCREEN_HEIGHT/2, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
             g.drawImage(Background.Background_Moon, BGX, BGY, this);
-//            g.setColor(new Color(64, 90, 156));
-//            g.fillRect(0, 0, Constants.SCREEN_WIDTH, 735);
 //            ImageIcon iconBGGif = new ImageIcon("src/Textures/Background/gifBG1.gif");
 //            g.drawImage(iconBGGif.getImage(), 0,0,this);
-            g.setColor(new Color(54, 31, 6));
-            g.fillRect(0, 730, Constants.SCREEN_WIDTH, 170);
+            g.drawImage(Background.Ground, GX, GY, this);
             g.drawImage(guardian.image, guardian.x, guardian.y, this);
 
             for (int i = 0; i < primaryWeapon.bullets.length; i++) {
@@ -72,23 +118,29 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 g.drawImage(heavyWeapon.bullets[i].IMG, heavyWeapon.bullets[i].x, heavyWeapon.bullets[i].y, this);
             }
 
-            if (weapon == null) {
+            for (SmallShank shank:shanks) {
+                g.drawImage(shank.image, shank.x, shank.y, this);
+                g.setColor(new Color(0, 45, 0));
+                g.fillRect(shank.x + 20, shank.y + 20, 140, 7);
+                g.setColor(Color.GREEN);
+                g.fillRect(shank.x + 20, shank.y + 20, (int) (shank.currentHealth/shank.maxHealth * 140), 7);
 
-            } else if (weapon.equals(primaryWeapon)) {
-                g.drawImage(Background.Weapon_Select_PW, 20, 20, this);
-            } else if (weapon.equals(specialWeapon)) {
-                g.drawImage(Background.Weapon_Select_SW, 20, 20, this);
-            } else if (weapon.equals(heavyWeapon)) {
-                g.drawImage(Background.Weapon_Select_HW, 20, 20, this);
             }
 
-            g.setFont(new Font("Bauhaus 93", Font.BOLD, 20));
-            g.setColor(Color.BLACK);
-            g.drawString(primaryWeapon.ammoInMagazine + " / ∞", 190, 80);
-            g.drawString("  " + specialWeapon.ammoInMagazine + " / " + specialWeapon.ammoTotal, 190, 140);
-            g.drawString("   " + heavyWeapon.ammoInMagazine + " / " + heavyWeapon.ammoTotal, 190, 205);
-
-
+            if (weapon != null) {
+                if (weapon.equals(primaryWeapon)) {
+                    g.drawImage(Background.Weapon_Select_PW, 20, 20, this);
+                } else if (weapon.equals(specialWeapon)) {
+                    g.drawImage(Background.Weapon_Select_SW, 20, 20, this);
+                } else if (weapon.equals(heavyWeapon)) {
+                    g.drawImage(Background.Weapon_Select_HW, 20, 20, this);
+                }
+                g.setFont(new Font("Bauhaus 93", Font.BOLD, 20));
+                g.setColor(Color.BLACK);
+                g.drawString(primaryWeapon.ammoInMagazine + " / ∞", 190, 80);
+                g.drawString("  " + specialWeapon.ammoInMagazine + " / " + specialWeapon.ammoTotal, 190, 140);
+                g.drawString("   " + heavyWeapon.ammoInMagazine + " / " + heavyWeapon.ammoTotal, 190, 205);
+            }
 
 
         } else if (gameStatus == 0) {
@@ -121,15 +173,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                     guardian.isFlyingRight = false;
                     guardian.lastAction = 9;
                 }
-                case KeyEvent.VK_W ->
-                    guardian.isFlyingUp = true;
+                case KeyEvent.VK_W -> guardian.isFlyingUp = true;
                 case KeyEvent.VK_S -> {
                     guardian.isCrouching = true;
                 }
-                case KeyEvent.VK_R ->
-                    weapon.reload();
-                case KeyEvent.VK_1 ->
-                    weapon = primaryWeapon;
+                case KeyEvent.VK_R -> weapon.reload();
+                case KeyEvent.VK_1 -> weapon = primaryWeapon;
                 case KeyEvent.VK_2 -> {
                     weapon = specialWeapon;
                 }
@@ -182,25 +231,28 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         if (isRunning) {
             if (gameStatus == 1) {
                 if (guardian.y < 310 && !guardian.isFlyingUp) {
-                    guardian.y += 21;
+                    guardian.y += 15;
                     BGY -= 3;
-
+                    GY -= 9;
                     repaint();
                 }
                 if (guardian.isFlyingUp) {
                     if (guardian.y > 0) {
-                        guardian.y -= 7;
+                        guardian.y -= 5;
                         BGY++;
+                        GY += 3;
                         repaint();
                     }
                 }
                 if (guardian.isFlyingLeft) {
-                    guardian.x -= 7;
-                    BGX+=2;
+                    guardian.x -= 5;
+                    BGX += 2;
+                    GX += 6;
                     repaint();
                 } else if (guardian.isFlyingRight) {
-                    guardian.x += 9;
-                    BGX-=2;
+                    guardian.x += 7;
+                    BGX -= 2;
+                    GX -= 6;
                     repaint();
                 }
                 if (weapon != null) {
@@ -274,7 +326,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                                     guardian.image = GuardianSW.IMG_Flying_Right_Shooting;
                                 else
                                     guardian.image = GuardianSW.IMG_Flying_Right;
-                            } else if (guardian.lastAction == 9 || guardian.lastAction == 19|| guardian.lastAction == 59) {
+                            } else if (guardian.lastAction == 9 || guardian.lastAction == 19 || guardian.lastAction == 59) {
                                 if (weapon.isShooting)
                                     guardian.image = GuardianSW.IMG_Flying_Left_Shooting;
                                 else
@@ -394,7 +446,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 for (Bullet bullet : heavyWeapon.bullets) {
                     if (bullet.isFlying) {
                         bullet.x += 30;
-                        bullet.y = (int) ((0.00032) *Math.pow((bullet.x*1.0 - (bullet.iX)), 2.0) + bullet.iY);
+                        bullet.y = (int) ((0.00032) * Math.pow((bullet.x * 1.0 - (bullet.iX)), 2.0) + bullet.iY);
                         repaint();
                     }
                     if (bullet.y > 730 || bullet.x > 1700) {

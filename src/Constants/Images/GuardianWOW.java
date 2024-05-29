@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class GuardianWOW {
+    public class GuardianWOW {
     public static BufferedImage IMG_Flying_Right;
     public static BufferedImage IMG_Flying_Left;
     public static BufferedImage IMG_Standing_Still_Right_WOJet;

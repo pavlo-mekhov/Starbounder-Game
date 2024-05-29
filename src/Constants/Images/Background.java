@@ -11,6 +11,7 @@ public class Background {
     public static BufferedImage Weapon_Select_SW;
     public static BufferedImage Weapon_Select_HW;
     public static BufferedImage Background_Moon;
+    public static BufferedImage Ground;
 
 
     static {
@@ -20,6 +21,7 @@ public class Background {
             Weapon_Select_SW = ImageIO.read(new File("src/Textures/Background/WeaponSelectSW.png"));
             Weapon_Select_HW = ImageIO.read(new File("src/Textures/Background/WeaponSelectHW.png"));
             Background_Moon = ImageIO.read(new File("src/Textures/Background/BackgroundMoonL.png"));
+            Ground = ImageIO.read(new File("src/Textures/Background/GroundL.png"));
 
         } catch (IOException e) {
             throw new RuntimeException(e);

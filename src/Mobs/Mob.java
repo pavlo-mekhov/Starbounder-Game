@@ -1,8 +1,11 @@
 package Mobs;
 
+import java.awt.image.BufferedImage;
+
 public class Mob {
-    public int currentHealth;
-    public int maxHealth;
+    public double currentHealth;
+    public double maxHealth;
     public int x;
     public int y;
+    public BufferedImage image;
 }

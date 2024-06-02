@@ -1,9 +1,10 @@
 package Mobs;
 
 
-import Constants.Images.*;
-
 public class SmallShank extends Mob implements Runnable {
+
+    int timer;
+    boolean isUp;
 
 
     public SmallShank(int y, int number) {
@@ -19,7 +20,7 @@ public class SmallShank extends Mob implements Runnable {
             case 2 -> {
                 image = Constants.Images.SmallShank.IMG_2;
                 x = 1500;
-                currentHealth = 200.0;
+                currentHealth = 190.0;
             }
             case 3 -> {
                 image = Constants.Images.SmallShank.IMG_3;
@@ -50,15 +51,23 @@ public class SmallShank extends Mob implements Runnable {
     @Override
     public void run() {
         while (true) {
-            System.out.println("");
-            if (x > 1250) {
-                try {
-                    Thread.sleep(30);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                move();
+            try {
+                Thread.sleep(30);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
+            System.out.print("");
+            if (x > 1250)
+                move();
+
+            if (timer % 10 == 0) {
+                isUp = !isUp;
+            }
+            if (isUp)
+                y += 1;
+            else
+                y -= 1;
+            timer++;
         }
     }
 }

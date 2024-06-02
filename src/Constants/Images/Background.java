@@ -1,6 +1,7 @@
 package Constants.Images;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +13,7 @@ public class Background {
     public static BufferedImage Weapon_Select_HW;
     public static BufferedImage Background_Moon;
     public static BufferedImage Ground;
+    public static ImageIcon LoadingBG;
 
 
     static {
@@ -22,6 +24,7 @@ public class Background {
             Weapon_Select_HW = ImageIO.read(new File("src/Textures/Background/WeaponSelectHW.png"));
             Background_Moon = ImageIO.read(new File("src/Textures/Background/BackgroundMoonL.png"));
             Ground = ImageIO.read(new File("src/Textures/Background/GroundL.png"));
+            LoadingBG = new ImageIcon("src/Textures/Background/LoadingBG.PNG");
 
         } catch (IOException e) {
             throw new RuntimeException(e);

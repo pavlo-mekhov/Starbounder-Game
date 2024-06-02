@@ -18,7 +18,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     int BGY = -10;
     int GX = -700;
     int GY = 730;
-    int gameStatus; //1 - running, 0 - escape menu
+    int gameStatus; //1 - running, 0 - escape menu, 99 - tutorial, 90 - initial launch, 91 - launch
     int previousGameStatus;
     Weapon weapon;
     PrimaryWeapon primaryWeapon = new PrimaryWeapon();
@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
     Thread damageCheck = new Thread(() -> {
         while (true) {
-            System.out.println("");
+            System.out.print("");
             if (gameStatus == 1) {
                 for (Bullet bullet: primaryWeapon.bullets) {
                     for (SmallShank shank:shanks) {
@@ -52,6 +52,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 for (SmallShank shank:shanks) {
                     if (shank.currentHealth <= 0) {
                         shank.explode();
+                        GameApp.savedData.amountOfKills++;
                     }
                 }
             }
@@ -70,6 +71,11 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
 
     public void startGame() {
+        if (GameApp.savedData.isInitialLaunch)
+            gameStatus = 90;
+        else
+            gameStatus = 91;
+
         isRunning = true;
         timer = new Timer(30, this);
         timer.start();
@@ -97,6 +103,17 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        if (gameStatus == 90) {
+            g.setColor(new Color(9, 0 ,22));
+            g.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+
+
+
+        } else if (gameStatus == 91) {
+
+        }
+
         if (gameStatus == 1) {
             g.setColor(new Color(6, 0 ,15));
             g.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT/2);
@@ -137,9 +154,14 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 }
                 g.setFont(new Font("Bauhaus 93", Font.BOLD, 20));
                 g.setColor(Color.BLACK);
+
                 g.drawString(primaryWeapon.ammoInMagazine + " / ∞", 190, 80);
                 g.drawString("  " + specialWeapon.ammoInMagazine + " / " + specialWeapon.ammoTotal, 190, 140);
                 g.drawString("   " + heavyWeapon.ammoInMagazine + " / " + heavyWeapon.ammoTotal, 190, 205);
+
+                //TEMPORARY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                g.setColor(Color.WHITE);
+                g.drawString("Kills: " + GameApp.savedData.amountOfKills, 350, 100);
             }
 
 

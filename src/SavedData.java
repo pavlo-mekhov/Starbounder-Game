@@ -4,7 +4,7 @@ public class SavedData implements Serializable {
     boolean isTutorialCompleted;
     boolean isInitialLaunch;
     int amountOfKills;
-    double gameStage;
+    double gameStage; //if < 10 - tutorial
     public SavedData() {
         isTutorialCompleted = false;
         isInitialLaunch = true;

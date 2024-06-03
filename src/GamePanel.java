@@ -104,24 +104,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (gameStatus == 90) {
-            g.setColor(new Color(9, 0 ,22));
-            g.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
-
-
-
-        } else if (gameStatus == 91) {
-
-        }
-
         if (gameStatus == 1) {
             g.setColor(new Color(6, 0 ,15));
             g.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT/2);
             g.setColor(new Color(9, 0 ,22));
             g.fillRect(0, Constants.SCREEN_HEIGHT/2, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
             g.drawImage(Background.Background_Moon, BGX, BGY, this);
-//            ImageIcon iconBGGif = new ImageIcon("src/Textures/Background/gifBG1.gif");
-//            g.drawImage(iconBGGif.getImage(), 0,0,this);
             g.drawImage(Background.Ground, GX, GY, this);
             g.drawImage(guardian.image, guardian.x, guardian.y, this);
 

@@ -8,9 +8,11 @@ public class GameApp {
     public static SavedData savedData; //variable for saved data
     public static boolean isReadyToSave; //boolean in case of not savable moment
     public static JFrame gameFrame = new JFrame("Game"); //set name above the frame
+    public static int gameStatus;
 
 
     public static void main(String[] args) throws InterruptedException {
+        gameStatus = 90;
         SwingUtilities.invokeLater(() -> { //safe launch
             try {
                 new GameFrame();

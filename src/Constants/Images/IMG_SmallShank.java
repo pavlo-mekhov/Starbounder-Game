@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class SmallShank {
+public class IMG_SmallShank {
     //each number is different angle of weapon
     public static BufferedImage IMG_1;
     public static BufferedImage IMG_2;

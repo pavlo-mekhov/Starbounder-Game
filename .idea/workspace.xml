@@ -4,21 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e4f7c80-916e-4945-b84a-50c68c161dfb" name="Changes" comment="Serialization, some comments, new Panel, separated JFrame">
-      <change afterPath="$PROJECT_DIR$/src/ShellDrone.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Background/LoadingBG.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/WOW_Crouching_Left_WOJet.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/WOW_Crouching_Left_WOJet_Fallen.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/WOW_Crouching_Right_WOJet.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Guardian/WOW_Crouching_Right_WOJet_Fallen.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/TutorialPanel.java" afterDir="false" />
+    <list default="true" id="0e4f7c80-916e-4945-b84a-50c68c161dfb" name="Changes" comment="Some small changes">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Constants/Images/IMG_HeavyShank.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Constants/Images/IMG_Shell.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Mobs/HeavyShank.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Mobs/SmallShankBullet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Shell.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Bullets/SmallShankPrimaryBullet1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Mobs/HeavyShank.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Shell/Shell.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Shell/Text1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Shell/Text2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Shell/Text3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Shell/Text4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Shell/Text5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Shell/Text6.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants/Images/GuardianWOW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Images/GuardianWOW.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants/Images/Background.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Images/IMG_Background.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants/Images/GuardianHW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Images/IMG_GuardianHW.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants/Images/GuardianPW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Images/IMG_GuardianPW.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants/Images/GuardianSW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Images/IMG_GuardianSW.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants/Images/GuardianWOW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Images/IMG_GuardianWOW.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants/Images/SmallShank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Images/IMG_SmallShank.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Guardian.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Guardian.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LoadingScreenPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LoadingScreenPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SavedData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SavedData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mobs/Mob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mobs/Mob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mobs/SmallShank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mobs/SmallShank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ShellDrone.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TutorialPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TutorialPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +105,14 @@
       <option name="project" value="LOCAL" />
       <updated>1717364864566</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Some small changes">
+      <created>1717445534665</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1717445534665</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -118,6 +141,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Icons, shooting, reloading" />
     <MESSAGE value="Serialization, some comments, new Panel, separated JFrame" />
-    <option name="LAST_COMMIT_MESSAGE" value="Serialization, some comments, new Panel, separated JFrame" />
+    <MESSAGE value="Some small changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Some small changes" />
   </component>
 </project>

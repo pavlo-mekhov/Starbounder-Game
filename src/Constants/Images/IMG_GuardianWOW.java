@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-    public class GuardianWOW {
+public class IMG_GuardianWOW {
     public static BufferedImage IMG_Flying_Right;
     public static BufferedImage IMG_Flying_Left;
     public static BufferedImage IMG_Standing_Still_Right_WOJet;
@@ -14,10 +14,10 @@ import java.io.IOException;
     public static BufferedImage IMG_Standing_Still_Left_WJet ;
     public static BufferedImage IMG_Crouching_Right_WJet;
     public static BufferedImage IMG_Crouching_Left_WJet;
-        public static BufferedImage IMG_Crouching_Right_WOJet;
-        public static BufferedImage IMG_Crouching_Left_WOJet;
-        public static BufferedImage IMG_Crouching_Right_WOJet_Fallen;
-        public static BufferedImage IMG_Crouching_Left_WOJet_Fallen;
+    public static BufferedImage IMG_Crouching_Right_WOJet;
+    public static BufferedImage IMG_Crouching_Left_WOJet;
+    public static BufferedImage IMG_Crouching_Right_WOJet_Fallen;
+    public static BufferedImage IMG_Crouching_Left_WOJet_Fallen;
 
 
 
@@ -27,7 +27,7 @@ import java.io.IOException;
             IMG_Flying_Left = ImageIO.read(new File("src/Textures/Guardian/Flying_Left.PNG"));
             IMG_Standing_Still_Right_WOJet = ImageIO.read(new File("src/Textures/Guardian/Standing_Still_Right_WOJet.png"));
             IMG_Standing_Still_Left_WOJet = ImageIO.read(new File("src/Textures/Guardian/Standing_Still_Left_WOJet.png"));
-            IMG_Standing_Still_Right_WJet = ImageIO.read(new File("src/Textures/Guardian/PW_Standing_Still_Right_WJet.png"));
+            IMG_Standing_Still_Right_WJet = ImageIO.read(new File("src/Textures/Guardian/Standing_Still_Right_WJet.png"));
             IMG_Standing_Still_Left_WJet = ImageIO.read(new File("src/Textures/Guardian/Standing_Still_Left_WJet.png"));
             IMG_Crouching_Right_WJet = ImageIO.read(new File("src/Textures/Guardian/Crouching_Right_WJet.PNG"));
             IMG_Crouching_Left_WJet = ImageIO.read(new File("src/Textures/Guardian/Crouching_Left_WJet.PNG"));

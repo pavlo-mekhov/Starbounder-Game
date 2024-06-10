@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Background {
+public class IMG_Background {
     public static BufferedImage Weapon_Select_WOW;
     public static BufferedImage Weapon_Select_PW;
     public static BufferedImage Weapon_Select_SW;

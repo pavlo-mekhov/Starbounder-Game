@@ -1,11 +1,10 @@
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class Guardian {
     int x;
     int y;
+    int maxHealth;
+    int currentHealth;
     boolean isFlyingRight = false;
     boolean isFlyingLeft = false;
     boolean isFlyingUp = false;
@@ -13,10 +12,12 @@ public class Guardian {
 
     int lastAction;
     BufferedImage image;
-    Guardian() throws IOException {
+    Guardian() {
         y = 300;
         x = 100;
         lastAction = 10;
+        maxHealth = 750;
+        currentHealth = maxHealth;
     }
 
 

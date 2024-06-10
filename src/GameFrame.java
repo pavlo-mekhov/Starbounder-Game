@@ -37,6 +37,8 @@ public class GameFrame extends JFrame {
 
         setContentPane(new TutorialPanel());
 
+
+
 //        if (GameApp.savedData.isInitialLaunch) {
 //            setContentPane(new LoadingScreenPanel());
 //        } else {

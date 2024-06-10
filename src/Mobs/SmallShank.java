@@ -1,36 +1,41 @@
 package Mobs;
 
 
+import Constants.Images.IMG_SmallShank;
+import Weapon.Bullet;
+
 public class SmallShank extends Mob implements Runnable {
 
     int timer;
     boolean isUp;
+    int type;
 
 
-    public SmallShank(int y, int number) {
+    public SmallShank(int y, int x, int type) {
         this.y = y;
+        this.type = type;
         maxHealth = 200.0;
         currentHealth = maxHealth;
-        switch (number) {
+        bullets = new Bullet[10];
+        for (int i = 0; i < bullets.length; i++) {
+            bullets[i] = new SmallShankBullet();
+        }
+        switch (type) {
             case 1 -> {
-                image = Constants.Images.SmallShank.IMG_1;
-                x = 1600;
-                currentHealth = 67.0;
+                image = IMG_SmallShank.IMG_1;
+                this.x = x;
             }
             case 2 -> {
-                image = Constants.Images.SmallShank.IMG_2;
-                x = 1500;
-                currentHealth = 190.0;
+                image = IMG_SmallShank.IMG_2;
+                this.x = x;
             }
             case 3 -> {
-                image = Constants.Images.SmallShank.IMG_3;
-                x = 1550;
-                currentHealth = 7.0;
+                image = IMG_SmallShank.IMG_3;
+                this.x = x;
             }
             case 4 -> {
-                image = Constants.Images.SmallShank.IMG_4;
-                x = 1400;
-                currentHealth = 158.0;
+                image = IMG_SmallShank.IMG_4;
+                this.x = x;
             }
         }
     }
@@ -39,8 +44,16 @@ public class SmallShank extends Mob implements Runnable {
         x -= 5;
     }
 
-    public void shoot() {
+    @Override
+    public void attack() {
+        super.attack();
+        new Thread(() -> {
+            switch (type) {
+                case 1 -> {
 
+                }
+            }
+        });
     }
 
     public void explode() {

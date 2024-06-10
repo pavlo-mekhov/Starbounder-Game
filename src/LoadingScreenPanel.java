@@ -1,4 +1,4 @@
-import Constants.Images.Background;
+import Constants.Images.IMG_Background;
 
 import javax.swing.*;
 import java.awt.*;
@@ -104,7 +104,7 @@ public class LoadingScreenPanel extends JPanel {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 1600, 900);
-        g.drawImage(Background.LoadingBG.getImage(), loadingBGX, loadingBGY, loadingBGWidth, loadingBGHeight, this);
+        g.drawImage(IMG_Background.LoadingBG.getImage(), loadingBGX, loadingBGY, loadingBGWidth, loadingBGHeight, this);
 
         if (GameApp.savedData.isInitialLaunch) {
             if (isDrawingText1) {

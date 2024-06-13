@@ -34,6 +34,7 @@ public class GameFrame extends JFrame {
         setLocationRelativeTo(null); //move frame to the middle
         setVisible(true);
         setResizable(false);
+        setIconImage(new ImageIcon("src/GameIcon.jpg").getImage());
 
         setContentPane(new TutorialPanel());
 

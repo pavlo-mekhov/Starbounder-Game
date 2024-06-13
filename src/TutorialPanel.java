@@ -21,7 +21,7 @@ public class TutorialPanel extends JPanel implements KeyListener, ActionListener
     HeavyShank heavyShank = new HeavyShank();
     SmallShank[] shanks = new SmallShank[4];
     Weapon weapon;
-    PrimaryWeapon primaryWeapon = new PrimaryWeapon();
+    PrimaryWeapon primaryWeapon = new PrimaryWeapon(this);
     SpecialWeapon specialWeapon = new SpecialWeapon();
     HeavyWeapon heavyWeapon = new HeavyWeapon();
     double tutorialStage;

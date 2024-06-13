@@ -21,7 +21,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     int gameStatus; //1 - running, 0 - escape menu, 99 - tutorial, 90 - initial launch, 91 - launch
     int previousGameStatus;
     Weapon weapon;
-    PrimaryWeapon primaryWeapon = new PrimaryWeapon();
+    PrimaryWeapon primaryWeapon = new PrimaryWeapon(this);
     Thread PWThread = new Thread(primaryWeapon);
     SpecialWeapon specialWeapon = new SpecialWeapon();
     Thread SWThread = new Thread(specialWeapon);
@@ -421,16 +421,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                     }
                 } else {
 
-                }
-                for (Bullet bullet : primaryWeapon.bullets) {
-                    if (bullet.isFlying) {
-                        bullet.x += 30;
-                    }
-                    if (bullet.x > 1700) {
-                        bullet.explode();
-                        bullet.isFlying = false;
-                        bullet.x = -100;
-                    }
                 }
                 for (Bullet bullet : specialWeapon.bullets) {
                     if (bullet.isFlying) {

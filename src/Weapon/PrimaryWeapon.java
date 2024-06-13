@@ -1,9 +1,12 @@
 package Weapon;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class PrimaryWeapon extends Weapon implements Runnable {
-    public PrimaryWeapon() throws IOException {
+    JPanel panel;
+    public PrimaryWeapon(JPanel panel) throws IOException {
+        this.panel = panel;
         magazineCapacity = 110;
         ammoInMagazine = magazineCapacity;
         ammoTotal = Integer.MAX_VALUE;
@@ -11,6 +14,28 @@ public class PrimaryWeapon extends Weapon implements Runnable {
         for (int i = 0; i < bullets.length; i++) {
             bullets[i] = new PrimaryBullet();
         }
+
+        new Thread(() -> {
+            while (true) {
+                System.out.print("");
+                try {
+                    Thread.sleep(30);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                for (Bullet bullet:bullets) {
+                    if (bullet.isFlying) {
+                        bullet.x += 30;
+                    }
+                    if (bullet.x > 1700) {
+                        bullet.explode();
+                        bullet.isFlying = false;
+                        bullet.x = -100;
+                    }
+                    panel.repaint();
+                }
+            }
+        }).start();
     }
 
     @Override

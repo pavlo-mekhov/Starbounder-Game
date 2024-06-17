@@ -52,7 +52,7 @@ public class GameFrame extends JFrame {
         setResizable(false);
         setIconImage(new ImageIcon("src/GameIcon.jpg").getImage());
 
-        setContentPane(new LoadingScreenPanel()); //initial panel where game starts
+        setContentPane(new GamePanel()); //initial panel where game starts
 
 
         checkGameStageThread.start();

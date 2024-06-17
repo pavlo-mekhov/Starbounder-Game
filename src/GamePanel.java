@@ -52,7 +52,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 for (Bullet bullet: specialWeapon.bullets) {
                     for (SmallShank shank:shanks) {
                         if (bullet.x >= shank.x + 13 && bullet.x <= shank.x + 180 && bullet.y >= shank.y + 50 && bullet.y <= shank.y + 140) {
-                            shank.currentHealth -= 24;
+                            shank.currentHealth -= 80;
                             bullet.explode();
                         }
                     }

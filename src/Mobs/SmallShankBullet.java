@@ -12,9 +12,9 @@ public class SmallShankBullet extends Bullet {
         try {
             switch (type) {
                 case 1 -> IMG = ImageIO.read(new File("src/Textures/Bullets/SmallShankPrimaryBullet1.png"));
-                case 2 -> IMG = ImageIO.read(new File("src/Textures/Bullets/SmallShankPrimaryBullet2.png"));
-                case 3 -> IMG = ImageIO.read(new File("src/Textures/Bullets/SmallShankPrimaryBullet3.png"));
-                case 4 -> IMG = ImageIO.read(new File("src/Textures/Bullets/SmallShankPrimaryBullet4.png"));
+//                case 2 -> IMG = ImageIO.read(new File("src/Textures/Bullets/SmallShankPrimaryBullet2.png"));
+//                case 3 -> IMG = ImageIO.read(new File("src/Textures/Bullets/SmallShankPrimaryBullet3.png"));
+//                case 4 -> IMG = ImageIO.read(new File("src/Textures/Bullets/SmallShankPrimaryBullet4.png"));
 
             }
             IMG = ImageIO.read(new File("src/Textures/Bullets/SmallShankPrimaryBullet1.png"));

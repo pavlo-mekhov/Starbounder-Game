@@ -9,25 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e4f7c80-916e-4945-b84a-50c68c161dfb" name="Changes" comment="Renamed, extended story line">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/StarbounderGame_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Shell/Text10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Shell/Text11.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Shell/Text8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Shell/Text9.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="0e4f7c80-916e-4945-b84a-50c68c161dfb" name="Changes" comment="Tutorial completed">
+      <change afterPath="$PROJECT_DIR$/src/Textures/Background/Ground.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Background/GroundL.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Background/WeaponSelectOnlyPW.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/gif.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants/Images/IMG_Background.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Images/IMG_Background.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants/Images/IMG_Shell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Images/IMG_Shell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Guardian.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Guardian.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LoadingScreenPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LoadingScreenPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Mobs/SmallShank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mobs/SmallShank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Mobs/SmallShankBullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mobs/SmallShankBullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/README" beforeDir="false" afterPath="$PROJECT_DIR$/src/README" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TutorialPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TutorialPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Weapon/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Weapon/Bullet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1718301832096</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Tutorial completed">
+      <created>1718629617196</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1718629617196</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -157,6 +154,7 @@
     <MESSAGE value="Serialization, some comments, new Panel, separated JFrame" />
     <MESSAGE value="Some small changes" />
     <MESSAGE value="Renamed, extended story line" />
-    <option name="LAST_COMMIT_MESSAGE" value="Renamed, extended story line" />
+    <MESSAGE value="Tutorial completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tutorial completed" />
   </component>
 </project>

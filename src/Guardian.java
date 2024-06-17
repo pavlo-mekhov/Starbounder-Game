@@ -16,7 +16,7 @@ public class Guardian {
         y = 300;
         x = 100;
         lastAction = 10;
-        maxHealth = 750;
+        maxHealth = 450;
         currentHealth = maxHealth;
     }
 

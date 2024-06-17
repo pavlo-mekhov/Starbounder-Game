@@ -9,6 +9,8 @@ import java.io.IOException;
 public class IMG_Background {
     public static BufferedImage Weapon_Select_WOW;
     public static BufferedImage Weapon_Select_PW;
+
+    public static BufferedImage Weapon_Select_OnlyPW;
     public static BufferedImage Weapon_Select_SW;
     public static BufferedImage Weapon_Select_HW;
     public static BufferedImage Background_Moon;
@@ -20,6 +22,7 @@ public class IMG_Background {
         try {
             Weapon_Select_WOW = ImageIO.read(new File("src/Textures/Background/WeaponSelectWOW.png"));
             Weapon_Select_PW = ImageIO.read(new File("src/Textures/Background/WeaponSelectPW.png"));
+            Weapon_Select_OnlyPW = ImageIO.read(new File("src/Textures/Background/WeaponSelectOnlyPW.png"));
             Weapon_Select_SW = ImageIO.read(new File("src/Textures/Background/WeaponSelectSW.png"));
             Weapon_Select_HW = ImageIO.read(new File("src/Textures/Background/WeaponSelectHW.png"));
             Background_Moon = ImageIO.read(new File("src/Textures/Background/BackgroundMoonL.png"));

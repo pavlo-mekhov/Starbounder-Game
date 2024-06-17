@@ -18,7 +18,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     int BGY = -10;
     int GX = -700;
     int GY = 730;
-    int gameStatus; //1 - running, 0 - escape menu, 99 - tutorial, 90 - initial launch, 91 - launch
+    int gameStatus; //1 - running, 0 - escape menu
     int previousGameStatus;
     Weapon weapon;
     PrimaryWeapon primaryWeapon = new PrimaryWeapon(this);
@@ -42,6 +42,14 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             System.out.print("");
             if (gameStatus == 1) {
                 for (Bullet bullet: primaryWeapon.bullets) {
+                    for (SmallShank shank:shanks) {
+                        if (bullet.x >= shank.x + 13 && bullet.x <= shank.x + 180 && bullet.y >= shank.y + 50 && bullet.y <= shank.y + 140) {
+                            shank.currentHealth -= 24;
+                            bullet.explode();
+                        }
+                    }
+                }
+                for (Bullet bullet: specialWeapon.bullets) {
                     for (SmallShank shank:shanks) {
                         if (bullet.x >= shank.x + 13 && bullet.x <= shank.x + 180 && bullet.y >= shank.y + 50 && bullet.y <= shank.y + 140) {
                             shank.currentHealth -= 24;
@@ -149,6 +157,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
                 //TEMPORARY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 g.setColor(Color.WHITE);
+                g.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
                 g.drawString("Kills: " + GameApp.savedData.amountOfKills, 350, 100);
             }
 
@@ -162,10 +171,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             g.setColor(Color.BLACK);
             g.drawString("Game paused", 700, 450);
         }
-
-    }
-
-    public void saveGame() {
 
     }
 
@@ -184,31 +189,21 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                     guardian.lastAction = 9;
                 }
                 case KeyEvent.VK_W -> guardian.isFlyingUp = true;
-                case KeyEvent.VK_S -> {
-                    guardian.isCrouching = true;
-                }
+                case KeyEvent.VK_S -> guardian.isCrouching = true;
                 case KeyEvent.VK_R -> weapon.reload();
                 case KeyEvent.VK_1 -> weapon = primaryWeapon;
-                case KeyEvent.VK_2 -> {
-                    weapon = specialWeapon;
-                }
-                case KeyEvent.VK_3 -> {
-                    weapon = heavyWeapon;
-                }
+                case KeyEvent.VK_2 -> weapon = specialWeapon;
+                case KeyEvent.VK_3 -> weapon = heavyWeapon;
                 case KeyEvent.VK_ESCAPE -> {
                     previousGameStatus = gameStatus;
                     gameStatus = 0;
                 }
-                case KeyEvent.VK_L -> {
-                    weapon.shoot(guardian.x, guardian.y, guardian.lastAction);
-                }
+                case KeyEvent.VK_L -> weapon.shoot(guardian.x, guardian.y, guardian.lastAction);
             }
             repaint();
         } else if (gameStatus == 0) {
             switch (e.getKeyCode()) {
-                case KeyEvent.VK_ESCAPE -> {
-                    gameStatus = previousGameStatus;
-                }
+                case KeyEvent.VK_ESCAPE -> gameStatus = previousGameStatus;
             }
         }
 
@@ -217,18 +212,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W -> {
-                guardian.isFlyingUp = false;
-            }
-            case KeyEvent.VK_D -> {
-                guardian.isFlyingRight = false;
-            }
-            case KeyEvent.VK_A -> {
-                guardian.isFlyingLeft = false;
-            }
-            case KeyEvent.VK_S -> {
-                guardian.isCrouching = false;
-            }
+            case KeyEvent.VK_W -> guardian.isFlyingUp = false;
+            case KeyEvent.VK_D -> guardian.isFlyingRight = false;
+            case KeyEvent.VK_A -> guardian.isFlyingLeft = false;
+            case KeyEvent.VK_S -> guardian.isCrouching = false;
         }
     }
 
@@ -419,8 +406,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                             }
                         }
                     }
-                } else {
-
                 }
                 for (Bullet bullet : specialWeapon.bullets) {
                     if (bullet.isFlying) {

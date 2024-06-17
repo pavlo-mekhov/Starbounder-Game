@@ -1,7 +1,6 @@
 package Weapon;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Bullet {
     public int x;
@@ -10,6 +9,7 @@ public class Bullet {
     public int iY;
     public BufferedImage IMG;
     public boolean isFlying;
+    public int damage;
     public Bullet() {
         isFlying = false;
     }

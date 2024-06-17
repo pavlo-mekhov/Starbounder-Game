@@ -9,16 +9,20 @@ public class SmallShank extends Mob implements Runnable {
     int timer;
     boolean isUp;
     int type;
+    public boolean isSpawning;
 
 
     public SmallShank(int y, int x, int type) {
+        magazineCapacity = 10;
+        isSpawning = true;
+        ammoInMagazine = magazineCapacity;
         this.y = y;
         this.type = type;
         maxHealth = 200.0;
         currentHealth = maxHealth;
         bullets = new Bullet[10];
         for (int i = 0; i < bullets.length; i++) {
-            bullets[i] = new SmallShankBullet();
+            bullets[i] = new SmallShankBullet(type);
         }
         switch (type) {
             case 1 -> {
@@ -46,18 +50,29 @@ public class SmallShank extends Mob implements Runnable {
 
     @Override
     public void attack() {
-        super.attack();
-        new Thread(() -> {
+        if (ammoInMagazine > 0) {
+            super.attack();
             switch (type) {
                 case 1 -> {
-
+                    ammoInMagazine--;
+                    bullets[ammoInMagazine].x = x+10;
+                    bullets[ammoInMagazine].y = y+130;
+                    bullets[ammoInMagazine].isFlying = true;
                 }
             }
-        });
+        } else {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                ammoInMagazine = magazineCapacity;
+        }
+
     }
 
     public void explode() {
-        x = 1800;
+        x = -10000;
         currentHealth = maxHealth;
     }
 
@@ -70,8 +85,14 @@ public class SmallShank extends Mob implements Runnable {
                 throw new RuntimeException(e);
             }
             System.out.print("");
-            if (x > 1250)
-                move();
+            if (isSpawning) {
+                if (x < 0){
+                    x = 1900;
+                }
+                if (x > 1250)
+                    move();
+            }
+
 
             if (timer % 10 == 0) {
                 isUp = !isUp;
@@ -81,6 +102,16 @@ public class SmallShank extends Mob implements Runnable {
             else
                 y -= 1;
             timer++;
+
+
+            for (Bullet bullet:bullets) {
+                if (bullet.isFlying) {
+                    bullet.x -= 30;
+
+                    if (bullet.x < -100)
+                        bullet.isFlying = false;
+                }
+            }
         }
     }
 }

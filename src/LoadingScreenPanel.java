@@ -20,14 +20,14 @@ public class LoadingScreenPanel extends JPanel {
             String text1;
             String text2;
             if (GameApp.savedData.isInitialLaunch) {
-                text1 = "Pavlo Mekhov Corporation";
+                text1 = "Pavlo Mekhov's Corporation";
                 text2 = "PRESENTS";
             } else {
                 text1 = "Welcome Back";
                 text2 = "To";
             }
 
-            String text3 = "THE GAME...";
+            String text3 = "STARBOUNDER...";
             for (int i = 1; i <= text1.length(); i++) {
                 toPrint1 = new StringBuilder(text1.substring(0, i) + "|");
                 Thread.sleep(300);//0.3s pause between characters
@@ -57,7 +57,11 @@ public class LoadingScreenPanel extends JPanel {
             isDrawingText3 = false;
             GameApp.savedData.isInitialLaunch = false;
 
-            GameApp.gameStatus = 80;
+            if (!GameApp.savedData.isTutorialCompleted) {
+                GameFrame.wantedPanel = 1;
+            } else
+                GameFrame.wantedPanel = 80;
+
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }

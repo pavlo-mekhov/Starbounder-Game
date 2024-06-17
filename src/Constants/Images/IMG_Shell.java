@@ -14,6 +14,10 @@ public class IMG_Shell {
     public static BufferedImage IMG_Text5;
     public static BufferedImage IMG_Text6;
     public static BufferedImage IMG_Text7;
+    public static BufferedImage IMG_Text8;
+    public static BufferedImage IMG_Text9;
+    public static BufferedImage IMG_Text10;
+    public static BufferedImage IMG_Text11;
 
 
     static {
@@ -25,7 +29,11 @@ public class IMG_Shell {
             IMG_Text4 = ImageIO.read(new File("src/Textures/Shell/Text4.png"));
             IMG_Text5 = ImageIO.read(new File("src/Textures/Shell/Text5.png"));
             IMG_Text6 = ImageIO.read(new File("src/Textures/Shell/Text6.png"));
-            IMG_Text6 = ImageIO.read(new File("src/Textures/Shell/Text7.png"));
+            IMG_Text7 = ImageIO.read(new File("src/Textures/Shell/Text7.png"));
+            IMG_Text8 = ImageIO.read(new File("src/Textures/Shell/Text8.png"));
+            IMG_Text9 = ImageIO.read(new File("src/Textures/Shell/Text9.png"));
+            IMG_Text10 = ImageIO.read(new File("src/Textures/Shell/Text10.png"));
+            IMG_Text11 = ImageIO.read(new File("src/Textures/Shell/Text11.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

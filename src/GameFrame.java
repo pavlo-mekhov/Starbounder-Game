@@ -6,10 +6,13 @@ import java.io.IOException;
 
 public class GameFrame extends JFrame {
     boolean isChecking = true;
-    Thread checkGameStageThread = new Thread(() -> {
+    int currentPanel;
+    public static int wantedPanel;
+    Thread checkGameStageThread = new Thread(() -> { //checking if game needs a different panel
         while (isChecking) {
             System.out.print("");
-            if (GameApp.gameStatus == 80) {
+
+            if (wantedPanel == 80 && currentPanel != 80) {
                 try {
                     getContentPane().removeAll();
                     getContentPane().invalidate();
@@ -18,7 +21,20 @@ public class GameFrame extends JFrame {
                     getContentPane().revalidate();
                     getContentPane().repaint();
                     gamePanel.requestFocusInWindow();
-                    isChecking = false;
+                    currentPanel = 80;
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (wantedPanel == 1 && currentPanel != 1) {
+                try {
+                    getContentPane().removeAll();
+                    getContentPane().invalidate();
+                    TutorialPanel tutorialPanel = new TutorialPanel();
+                    setContentPane(tutorialPanel);
+                    getContentPane().revalidate();
+                    getContentPane().repaint();
+                    tutorialPanel.requestFocusInWindow();
+                    currentPanel = 1;
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -27,7 +43,7 @@ public class GameFrame extends JFrame {
     });
 
     public GameFrame() throws IOException {
-        setTitle("The Game...");
+        setTitle("Starbounder");
         setBackground(new Color(6, 0 ,15));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
@@ -36,15 +52,8 @@ public class GameFrame extends JFrame {
         setResizable(false);
         setIconImage(new ImageIcon("src/GameIcon.jpg").getImage());
 
-        setContentPane(new TutorialPanel());
+        setContentPane(new LoadingScreenPanel()); //initial panel where game starts
 
-
-
-//        if (GameApp.savedData.isInitialLaunch) {
-//            setContentPane(new LoadingScreenPanel());
-//        } else {
-//            setContentPane(new GamePanel());
-//        }
 
         checkGameStageThread.start();
     }

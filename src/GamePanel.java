@@ -29,13 +29,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     Thread HWThread = new Thread(heavyWeapon);
     SmallShank[] shanks = new SmallShank[4];
 
-    Thread mobSpawn = new Thread(() -> {
-        while (true) {
-            if (gameStatus == 1) {
-
-            }
-        }
-    });
 
     Thread damageCheck = new Thread(() -> {
         while (true) {
@@ -57,11 +50,37 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                         }
                     }
                 }
+                for (Bullet bullet: heavyWeapon.bullets) {
+                    for (SmallShank shank:shanks) {
+                        if (bullet.x >= shank.x + 13 && bullet.x <= shank.x + 180 && bullet.y >= shank.y + 50 && bullet.y <= shank.y + 140) {
+                            shank.currentHealth -= 120;
+                            bullet.explode();
+                        }
+                    }
+                }
                 for (SmallShank shank:shanks) {
                     if (shank.currentHealth <= 0) {
                         shank.explode();
+                        shank.spawn();
                         GameApp.savedData.amountOfKills++;
                     }
+
+                    for (Bullet bullet: shank.bullets) {
+                        if (!guardian.isCrouching) {
+                            if (bullet.x <= guardian.x + 240 && bullet.x >= guardian.x + 140 && bullet.y >= guardian.y + 40 && bullet.y <= guardian.y + 320) {
+                                guardian.currentHealth -= 800;
+                                bullet.explode();
+                            }
+                        } else {
+                            if (bullet.x <= guardian.x + 240 && bullet.x >= guardian.x + 140 && bullet.y >= guardian.y + 184 && bullet.y <= guardian.y + 320) {
+                                guardian.currentHealth -= 8;
+                                bullet.explode();
+                            }
+                        }
+                    }
+                }
+                if (guardian.currentHealth <= 0) {
+                    GameFrame.wantedPanel = 0;
                 }
             }
         }
@@ -79,30 +98,39 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
 
     public void startGame() {
-        if (GameApp.savedData.isInitialLaunch)
-            gameStatus = 90;
-        else
-            gameStatus = 91;
-
         isRunning = true;
         timer = new Timer(30, this);
         timer.start();
         guardian.image = IMG_GuardianWOW.IMG_Standing_Still_Right_WOJet;
         weapon = primaryWeapon;
-        PWThread.start();
-        SWThread.start();
-        HWThread.start();
-        mobSpawn.start();
+        new Thread(primaryWeapon).start();
+        new Thread(specialWeapon).start();
+        new Thread(heavyWeapon).start();
         damageCheck.start();
+
+        new Thread(() -> {
+            while (true) {
+                System.out.print("");
+                try {
+                    Thread.sleep(300);
+                    for (SmallShank shank:shanks) {
+                        Thread.sleep(80);
+                        shank.attack();
+                    }
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }).start();
 
         for (int i = 0; i < shanks.length; i++) {
             shanks[i] = new SmallShank((i * 150) + 50, i*100 + 1600, i+1);
+            shanks[i].spawn();
         }
 
-        new Thread(shanks[0]).start();
-        new Thread(shanks[1]).start();
-        new Thread(shanks[2]).start();
-        new Thread(shanks[3]).start();
+        for (SmallShank shank:shanks) {
+            new Thread(shank).start();
+        }
 
         gameStatus = 1;
     }
@@ -138,7 +166,24 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 g.setColor(Color.GREEN);
                 g.fillRect(shank.x + 20, shank.y + 20, (int) (shank.currentHealth/shank.maxHealth * 140), 7);
 
+                g.setFont(new Font("Bauhaus 93", Font.BOLD, 10));
+                g.setColor(Color.BLACK);
+                g.drawString( (int) shank.currentHealth + " / " + (int) shank.maxHealth, shank.x + 60, shank.y + 26);
+
+                for (Bullet bullet:shank.bullets) {
+                    g.drawImage(bullet.IMG, bullet.x, bullet.y, this);
+                }
             }
+
+
+            g.setColor(new Color(250, 120, 120));
+            g.fillRect(20, 220, 250, 40);
+            g.setColor(new Color(250, 30, 30));
+            g.fillRect(20, 220, (int) (((guardian.currentHealth*1.0)/(guardian.maxHealth*1.0)) * 250), 40);
+
+            g.setFont(new Font("Bauhaus 93", Font.BOLD, 20));
+            g.setColor(Color.BLACK);
+            g.drawString(guardian.currentHealth + " / " + guardian.maxHealth, 110, 240);
 
             if (weapon != null) {
                 if (weapon.equals(primaryWeapon)) {
@@ -155,7 +200,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 g.drawString("  " + specialWeapon.ammoInMagazine + " / " + specialWeapon.ammoTotal, 190, 140);
                 g.drawString("   " + heavyWeapon.ammoInMagazine + " / " + heavyWeapon.ammoTotal, 190, 205);
 
-                //TEMPORARY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 g.setColor(Color.WHITE);
                 g.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
                 g.drawString("Kills: " + GameApp.savedData.amountOfKills, 350, 100);
@@ -169,7 +213,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             g.drawImage(gifBG.getImage(), 100, 100, this);
             g.setFont(new Font("Bauhaus 93", Font.BOLD, 47));
             g.setColor(Color.BLACK);
-            g.drawString("Game paused", 700, 450);
+            g.drawString("Game paused", 700, 250);
+
+
+            g.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+            g.drawString("Press 'Esc' to return to the game", 600, 300);
+            g.drawString("Press 'T' to complete tutorial again", 600, 350);
         }
 
     }
@@ -204,6 +253,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         } else if (gameStatus == 0) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_ESCAPE -> gameStatus = previousGameStatus;
+                case KeyEvent.VK_T -> GameFrame.wantedPanel = 1;
             }
         }
 
@@ -423,9 +473,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                         bullet.y = (int) ((0.00032) * Math.pow((bullet.x * 1.0 - (bullet.iX)), 2.0) + bullet.iY);
                         repaint();
                     }
-                    if (bullet.y > 730 || bullet.x > 1700) {
+                    if (bullet.y > 730) {
                         bullet.explode();
-                        bullet.y = -100;
                     }
                 }
             }

@@ -1,13 +1,13 @@
 package Weapon;
 
-import java.awt.image.BufferedImage;
+import java.awt.*;
 
 public class Bullet {
     public int x;
     public int y;
     public int iX;
     public int iY;
-    public BufferedImage IMG;
+    public Image IMG;
     public boolean isFlying;
     public int damage;
     public Bullet() {

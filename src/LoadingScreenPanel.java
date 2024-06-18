@@ -100,7 +100,6 @@ public class LoadingScreenPanel extends JPanel {
             }
             repaint();
         }
-        GameApp.savedData.gameStage = 1.0;
     });
 
     @Override
@@ -114,25 +113,25 @@ public class LoadingScreenPanel extends JPanel {
             if (isDrawingText1) {
                 g.setFont(new Font("Agency FB", Font.PLAIN, 44));
                 g.setColor(Color.WHITE);
-                g.drawString(toPrint1.toString(), 645, 440);
+                g.drawString(toPrint1.toString(), 600, 440);
             }
 
             if (isDrawingText2) {
                 g.setFont(new Font("Agency FB", Font.PLAIN, 60));
                 g.setColor(Color.WHITE);
-                g.drawString(toPrint2.toString(), 735, 500);
+                g.drawString(toPrint2.toString(), 690, 500);
             }
         } else {
             if (isDrawingText1) {
                 g.setFont(new Font("Agency FB", Font.PLAIN, 44));
                 g.setColor(Color.WHITE);
-                g.drawString(toPrint1.toString(), 630, 440);
+                g.drawString(toPrint1.toString(), 585, 440);
             }
 
             if (isDrawingText2) {
                 g.setFont(new Font("Agency FB", Font.PLAIN, 60));
                 g.setColor(Color.WHITE);
-                g.drawString(toPrint2.toString(), 700, 500);
+                g.drawString(toPrint2.toString(), 655, 500);
             }
         }
 
@@ -140,7 +139,7 @@ public class LoadingScreenPanel extends JPanel {
         if (isDrawingText3) {
             g.setFont(new Font("Agency FB", Font.PLAIN, 80));
             g.setColor(Color.WHITE);
-            g.drawString(toPrint3.toString(), 690, 450);
+            g.drawString(toPrint3.toString(), 640, 450);
         }
     }
 

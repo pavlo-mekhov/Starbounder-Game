@@ -46,6 +46,7 @@ public class TutorialPanel extends JPanel implements KeyListener, ActionListener
                     for (SmallShank shank : shanks) {
                         if (shank.currentHealth <= 0) {
                             shank.explode();
+                            shank.spawn();
                             kills++;
                             if (kills > 6) {
                                 for (SmallShank smallShank :shanks) {
@@ -67,7 +68,7 @@ public class TutorialPanel extends JPanel implements KeyListener, ActionListener
                     }
 
                     if (guardian.currentHealth <= 0) {
-                        guardian.image = null;
+                        GameFrame.wantedPanel = 0;
                     }
                 }
             } catch (Exception e) {
@@ -200,10 +201,6 @@ public class TutorialPanel extends JPanel implements KeyListener, ActionListener
             }).start();
 
             shell.y = -1000;
-//            while (shell.y > -100) {
-//                shell.y += 30;
-//                Thread.sleep(30);
-//            }
             shell.isBoundToGuardian = false;
 
             while (kills < 9) {
@@ -242,6 +239,7 @@ public class TutorialPanel extends JPanel implements KeyListener, ActionListener
             while (tutorialStage < 1.4) {
                 Thread.sleep(30);
             }
+            GameApp.savedData.isTutorialCompleted = true;
 
             GameFrame.wantedPanel = 80;
 
@@ -257,10 +255,6 @@ public class TutorialPanel extends JPanel implements KeyListener, ActionListener
         isRunning = true;
         timer = new Timer(30, this);
         timer.start();
-        if (!GameApp.savedData.isTutorialCompleted)
-            tutorialStage = GameApp.savedData.gameStage;
-        else
-            tutorialStage = 0.0;
         storyLineThread.start();
 
     }
@@ -327,6 +321,16 @@ public class TutorialPanel extends JPanel implements KeyListener, ActionListener
             g.setFont(new Font("Bauhaus 93", Font.BOLD, 20));
             g.setColor(Color.BLACK);
             g.drawString(guardian.currentHealth + " / " + guardian.maxHealth, 110, 240);
+
+            try {
+                if (weapon.ammoInMagazine == 0) {
+                    g.setColor(Color.WHITE);
+                    g.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+                    g.drawString("PRESS 'R' TO RELOAD", 300, 50);
+                }
+            } catch (Exception e) {
+                System.out.print("");
+            }
 
         }
 

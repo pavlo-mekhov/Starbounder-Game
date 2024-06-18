@@ -8,7 +8,7 @@ public class SmallShank extends Mob implements Runnable {
 
     int timer;
     boolean isUp;
-    int type;
+    public int type;
     public boolean isSpawning;
 
 
@@ -52,14 +52,35 @@ public class SmallShank extends Mob implements Runnable {
     public void attack() {
         if (ammoInMagazine > 0) {
             super.attack();
-            switch (type) {
-                case 1 -> {
-                    ammoInMagazine--;
-                    bullets[ammoInMagazine].x = x+10;
-                    bullets[ammoInMagazine].y = y+130;
-                    bullets[ammoInMagazine].isFlying = true;
+            if (isSpawning) {
+                switch (type) {
+                    case 1 -> {
+                        ammoInMagazine--;
+                        bullets[ammoInMagazine].x = x+10;
+                        bullets[ammoInMagazine].y = y+130;
+                        bullets[ammoInMagazine].isFlying = true;
+                    }
+                    case 2 -> {
+                        ammoInMagazine--;
+                        bullets[ammoInMagazine].x = x+10;
+                        bullets[ammoInMagazine].y = y+134;
+                        bullets[ammoInMagazine].isFlying = true;
+                    }
+                    case 3 -> {
+                        ammoInMagazine--;
+                        bullets[ammoInMagazine].x = x+13;
+                        bullets[ammoInMagazine].y = y+149;
+                        bullets[ammoInMagazine].isFlying = true;
+                    }
+                    case 4 -> {
+                        ammoInMagazine--;
+                        bullets[ammoInMagazine].x = x+20;
+                        bullets[ammoInMagazine].y = y+160;
+                        bullets[ammoInMagazine].isFlying = true;
+                    }
                 }
             }
+
         } else {
                 try {
                     Thread.sleep(3000);
@@ -73,7 +94,29 @@ public class SmallShank extends Mob implements Runnable {
 
     public void explode() {
         x = -10000;
+        y = -10000;
         currentHealth = maxHealth;
+    }
+
+    public void spawn() {
+        switch (type) {
+            case 1 -> {
+                y = (int) (Math.random()*3 + 1) * 35 + 370;
+                x = (int) (Math.random()*5 + 1) * 100 + 1700;
+            }
+            case 2 -> {
+                y = (int) (Math.random()*3 + 1) * 35 + 270;
+                x = (int) (Math.random()*5 + 1) * 100 + 1700;
+            }
+            case 3 -> {
+                y = (int) (Math.random()*3 + 1) * 30 + 120;
+                x = (int) (Math.random()*5 + 1) * 100 + 1700;
+            }
+            case 4 -> {
+                y = (int) (Math.random()*3 + 1) * 50;
+                x = (int) (Math.random()*5 + 1) * 100 + 1700;
+            }
+        }
     }
 
     @Override
@@ -89,8 +132,25 @@ public class SmallShank extends Mob implements Runnable {
                 if (x < 0){
                     x = 1900;
                 }
-                if (x > 1250)
-                    move();
+                switch (type) {
+                    case 1 -> {
+                        if (x > 1250)
+                            move();
+                    }
+                    case 2  -> {
+                        if (x > 1050)
+                            move();
+                    }
+                    case 3 -> {
+                        if (x > 800)
+                            move();
+                    }
+                    case 4  -> {
+                        if (x > 750)
+                            move();
+                    }
+                }
+
             }
 
 
@@ -106,7 +166,21 @@ public class SmallShank extends Mob implements Runnable {
 
             for (Bullet bullet:bullets) {
                 if (bullet.isFlying) {
-                    bullet.x -= 30;
+                    switch (type) {
+                        case 1 -> bullet.x -= 30;
+                        case 2 -> {
+                            bullet.x -= 30;
+                            bullet.y += 18;
+                        }
+                        case 3 -> {
+                            bullet.x -= 30;
+                            bullet.y += 19;
+                        }
+                        case 4 -> {
+                            bullet.x -= 30;
+                            bullet.y += 28;
+                        }
+                    }
 
                     if (bullet.x < -100)
                         bullet.isFlying = false;

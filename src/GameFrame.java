@@ -38,6 +38,15 @@ public class GameFrame extends JFrame {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+            } else if (wantedPanel == 0 && currentPanel != 0) {
+                getContentPane().removeAll();
+                getContentPane().invalidate();
+                DeathPanel deathPanel = new DeathPanel(currentPanel);
+                setContentPane(deathPanel);
+                getContentPane().revalidate();
+                getContentPane().repaint();
+                deathPanel.requestFocusInWindow();
+                currentPanel = 0;
             }
         }
     });
@@ -52,7 +61,7 @@ public class GameFrame extends JFrame {
         setResizable(false);
         setIconImage(new ImageIcon("src/GameIcon.jpg").getImage());
 
-        setContentPane(new GamePanel()); //initial panel where game starts
+        setContentPane(new LoadingScreenPanel()); //initial panel where game starts
 
 
         checkGameStageThread.start();

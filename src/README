@@ -1,3 +1,5 @@
+Main method is inside of GameApp class
+
 Last action/guardian state codes (+explanation)
     0 - right direction, if doesn't have anything before = Flying_Right (Shift 0 is ")", looks like an arrow right)
     9 - left direction, if doesn't have anything before = Flying_Left (Shift 9 is "(", looks like an arrow left)

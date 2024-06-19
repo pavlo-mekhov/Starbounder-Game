@@ -4,9 +4,7 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class PrimaryWeapon extends Weapon implements Runnable {
-    JPanel panel;
-    public PrimaryWeapon(JPanel panel) throws IOException {
-        this.panel = panel;
+    public PrimaryWeapon() throws IOException {
         magazineCapacity = 110;
         ammoInMagazine = magazineCapacity;
         ammoTotal = Integer.MAX_VALUE;
@@ -32,7 +30,6 @@ public class PrimaryWeapon extends Weapon implements Runnable {
                         bullet.isFlying = false;
                         bullet.x = -100;
                     }
-                    panel.repaint();
                 }
             }
         }).start();

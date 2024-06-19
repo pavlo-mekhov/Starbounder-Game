@@ -9,7 +9,8 @@ Last action/guardian state codes (+explanation)
     HW - Heavy Weapon, third slot
     WOW - Without Weapon
 
-Game Stages
-    0.0
-
+Game Panels' codes
+    0 - Death panel
+    1 - Tutorial Panel
+    80 - Game Panel
 

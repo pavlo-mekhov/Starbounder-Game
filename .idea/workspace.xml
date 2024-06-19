@@ -9,22 +9,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e4f7c80-916e-4945-b84a-50c68c161dfb" name="Changes" comment="Tutorial completed">
-      <change afterPath="$PROJECT_DIR$/src/DeathPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Bullets/HW_Explosion.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Bullets/SmallShankPrimaryBullet2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Bullets/SmallShankPrimaryBullet3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Textures/Bullets/SmallShankPrimaryBullet4.png" afterDir="false" />
+    <list default="true" id="0e4f7c80-916e-4945-b84a-50c68c161dfb" name="Changes" comment="Death panel, updated game panel">
+      <change afterPath="$PROJECT_DIR$/src/Mobs/HeavyShankBullet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Textures/Bullets/HeavyShankBullet.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants/Images/IMG_Background.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Images/IMG_Background.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LoadingScreenPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LoadingScreenPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mobs/HeavyShank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mobs/HeavyShank.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Mobs/SmallShank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mobs/SmallShank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Mobs/SmallShankBullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mobs/SmallShankBullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Textures/Background/Ground.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/README" beforeDir="false" afterPath="$PROJECT_DIR$/src/README" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TutorialPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TutorialPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Weapon/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Weapon/Bullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Weapon/HeavyBullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Weapon/HeavyBullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Weapon/PrimaryWeapon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Weapon/PrimaryWeapon.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1718630152426</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Death panel, updated game panel">
+      <created>1718671586452</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1718671586453</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -169,6 +174,17 @@
     <MESSAGE value="Some small changes" />
     <MESSAGE value="Renamed, extended story line" />
     <MESSAGE value="Tutorial completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tutorial completed" />
+    <MESSAGE value="Death panel, updated game panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="Death panel, updated game panel" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.ArrayStoreException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -53,7 +53,7 @@ public class SmallShank extends Mob implements Runnable {
         if (ammoInMagazine > 0) {
             super.attack();
             if (isSpawning) {
-                switch (type) {
+                switch (type) { //depending on type of shank, spawns bullets in different spots
                     case 1 -> {
                         ammoInMagazine--;
                         bullets[ammoInMagazine].x = x+10;
@@ -101,7 +101,7 @@ public class SmallShank extends Mob implements Runnable {
     public void spawn() {
         switch (type) {
             case 1 -> {
-                y = (int) (Math.random()*3 + 1) * 35 + 370;
+                y = (int) (Math.random()*3 + 1) * 35 + 290;
                 x = (int) (Math.random()*5 + 1) * 100 + 1700;
             }
             case 2 -> {

@@ -1,4 +1,5 @@
 import Constants.Images.*;
+import Mobs.HeavyShank;
 import Mobs.SmallShank;
 import Weapon.*;
 import Constants.*;
@@ -21,18 +22,16 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     int gameStatus; //1 - running, 0 - escape menu
     int previousGameStatus;
     Weapon weapon;
-    PrimaryWeapon primaryWeapon = new PrimaryWeapon(this);
-    Thread PWThread = new Thread(primaryWeapon);
+    PrimaryWeapon primaryWeapon = new PrimaryWeapon();
     SpecialWeapon specialWeapon = new SpecialWeapon();
-    Thread SWThread = new Thread(specialWeapon);
     HeavyWeapon heavyWeapon = new HeavyWeapon();
-    Thread HWThread = new Thread(heavyWeapon);
     SmallShank[] shanks = new SmallShank[4];
+    HeavyShank heavyShank = new HeavyShank();
 
 
     Thread damageCheck = new Thread(() -> {
         while (true) {
-            System.out.print("");
+            System.out.print(""); //for some reason Threads need this line of code to work more stable
             if (gameStatus == 1) {
                 for (Bullet bullet: primaryWeapon.bullets) {
                     for (SmallShank shank:shanks) {
@@ -40,6 +39,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                             shank.currentHealth -= 24;
                             bullet.explode();
                         }
+                    }
+                    if (bullet.x >= heavyShank.x + 60 && bullet.x <= heavyShank.x + 170 && bullet.y >= heavyShank.y + 95 && bullet.y <= heavyShank.y + 165) {
+                        heavyShank.currentHealth -= 24;
+                        bullet.explode();
                     }
                 }
                 for (Bullet bullet: specialWeapon.bullets) {
@@ -49,6 +52,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                             bullet.explode();
                         }
                     }
+                    if (bullet.x >= heavyShank.x + 60 && bullet.x <= heavyShank.x + 170 && bullet.y >= heavyShank.y + 95 && bullet.y <= heavyShank.y + 165) {
+                        heavyShank.currentHealth -= 80;
+                        bullet.explode();
+                    }
                 }
                 for (Bullet bullet: heavyWeapon.bullets) {
                     for (SmallShank shank:shanks) {
@@ -57,6 +64,33 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                             bullet.explode();
                         }
                     }
+                    if (bullet.x >= heavyShank.x + 60 && bullet.x <= heavyShank.x + 170 && bullet.y >= heavyShank.y + 95 && bullet.y <= heavyShank.y + 165) {
+                        heavyShank.currentHealth -= 120;
+                        bullet.explode();
+                    }
+                }
+                if (heavyShank.currentHealth <= 0) {
+                    heavyShank.isAlive = false;
+                    heavyShank.x = -10000;
+                    heavyShank.y = -10000;
+                }
+                for (Bullet bullet: heavyShank.bullets) {
+                    try {
+                        if (!guardian.isCrouching) {
+                            if (bullet.x <= guardian.x + 240 && bullet.x >= guardian.x + 140 && bullet.y >= guardian.y + 40 && bullet.y <= guardian.y + 320) {
+                                guardian.currentHealth -= 40;
+                                bullet.explode();
+                            }
+                        } else {
+                            if (bullet.x <= guardian.x + 240 && bullet.x >= guardian.x + 140 && bullet.y >= guardian.y + 184 && bullet.y <= guardian.y + 320) {
+                                guardian.currentHealth -= 40;
+                                bullet.explode();
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.out.print("");
+                    }
+
                 }
                 for (SmallShank shank:shanks) {
                     if (shank.currentHealth <= 0) {
@@ -68,7 +102,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                     for (Bullet bullet: shank.bullets) {
                         if (!guardian.isCrouching) {
                             if (bullet.x <= guardian.x + 240 && bullet.x >= guardian.x + 140 && bullet.y >= guardian.y + 40 && bullet.y <= guardian.y + 320) {
-                                guardian.currentHealth -= 800;
+                                guardian.currentHealth -= 8;
                                 bullet.explode();
                             }
                         } else {
@@ -106,11 +140,21 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         new Thread(primaryWeapon).start();
         new Thread(specialWeapon).start();
         new Thread(heavyWeapon).start();
+        new Thread(heavyShank).start();
         damageCheck.start();
 
-        new Thread(() -> {
+        for (int i = 0; i < shanks.length; i++) {
+            shanks[i] = new SmallShank((i * 150) + 50, i*100 + 1600, i+1);
+            shanks[i].spawn();
+        }
+
+        for (SmallShank shank:shanks) {
+            new Thread(shank).start();
+        }
+
+        new Thread(() -> { //small shanks' attack
             while (true) {
-                System.out.print("");
+                System.out.print(""); //for some reason Threads need this line of code to work more stable
                 try {
                     Thread.sleep(300);
                     for (SmallShank shank:shanks) {
@@ -123,14 +167,35 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             }
         }).start();
 
-        for (int i = 0; i < shanks.length; i++) {
-            shanks[i] = new SmallShank((i * 150) + 50, i*100 + 1600, i+1);
-            shanks[i].spawn();
-        }
+        new Thread(() -> {
+            while (true) {
+                System.out.print(""); //for some reason Threads need this line of code to work more stable
+                try {
+                    Thread.sleep((int) (Math.random()*7000 + 2000));
+                    heavyShank.x = 1700;
+                    heavyShank.y = 480;
+                    heavyShank.isAlive = true;
+                    while (heavyShank.isAlive) {
+                        Thread.sleep(800);
+                        heavyShank.attack();
+                    }
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }).start();
 
-        for (SmallShank shank:shanks) {
-            new Thread(shank).start();
-        }
+        new Thread(() -> {
+            while (true) {
+                System.out.print(""); //for some reason Threads need this line of code to work more stable
+                if (guardian.currentHealth <= 0) {
+                    GameFrame.wantedPanel = 0;
+                    System.out.println("Sent request");
+                    System.out.println(GameFrame.wantedPanel);
+                    break;
+                }
+            }
+        }).start();
 
         gameStatus = 1;
     }
@@ -174,6 +239,24 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                     g.drawImage(bullet.IMG, bullet.x, bullet.y, this);
                 }
             }
+
+            try {
+                g.drawImage(heavyShank.image, heavyShank.x, heavyShank.y, this);
+                g.setColor(new Color(0, 45, 0));
+                g.fillRect(heavyShank.x + 20, heavyShank.y + 20, 140, 7);
+                g.setColor(Color.GREEN);
+                g.fillRect(heavyShank.x + 20, heavyShank.y + 20, (int) (heavyShank.currentHealth/heavyShank.maxHealth * 140), 7);
+
+                g.setFont(new Font("Bauhaus 93", Font.BOLD, 10));
+                g.setColor(Color.BLACK);
+                g.drawString( (int) heavyShank.currentHealth + " / " + (int) heavyShank.maxHealth, heavyShank.x + 60, heavyShank.y + 26);
+                for (Bullet bullet: heavyShank.bullets) {
+                    g.drawImage(bullet.IMG, bullet.x, bullet.y, this);
+                }
+            } catch (Exception e) {
+                System.out.print("");
+            }
+
 
 
             g.setColor(new Color(250, 120, 120));

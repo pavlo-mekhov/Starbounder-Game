@@ -5,48 +5,39 @@ import java.awt.*;
 import java.io.IOException;
 
 public class GameFrame extends JFrame {
-    boolean isChecking = true;
     int currentPanel;
-    public static int wantedPanel;
+    public static int wantedPanel; //variable to which other parts of code will assign request to change panel
     Thread checkGameStageThread = new Thread(() -> { //checking if game needs a different panel
-        while (isChecking) {
-            System.out.print("");
-
-            if (wantedPanel == 80 && currentPanel != 80) {
+        while (true) { // always
+            System.out.print(""); //for some reason Threads need this line of code to work more stable
+            try {
+                Thread.sleep(30);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            if (wantedPanel != currentPanel) { //check if any part of code requested panel change
                 try {
-                    getContentPane().removeAll();
-                    getContentPane().invalidate();
-                    GamePanel gamePanel = new GamePanel();
-                    setContentPane(gamePanel);
+                    JPanel newPanel;
+                    System.out.println("received request");
+                    switch (wantedPanel) {
+                        case 0 -> newPanel = new DeathPanel(currentPanel);
+                        case 1 -> newPanel = new TutorialPanel();
+                        case 80 -> newPanel = new GamePanel();
+                        default -> throw new Exception();
+                    }
+                    getContentPane().removeAll(); //remove all active panels
+                    getContentPane().invalidate(); //reload
+                    setContentPane(newPanel);
                     getContentPane().revalidate();
                     getContentPane().repaint();
-                    gamePanel.requestFocusInWindow();
-                    currentPanel = 80;
+                    newPanel.requestFocusInWindow();
+                    currentPanel = wantedPanel;
                 } catch (IOException e) {
                     throw new RuntimeException(e);
+                } catch (Exception e) {
+                    System.out.println("Requesting not existing panel. GameFrame: 17  " +
+                            "Requested Panel" + wantedPanel);
                 }
-            } else if (wantedPanel == 1 && currentPanel != 1) {
-                try {
-                    getContentPane().removeAll();
-                    getContentPane().invalidate();
-                    TutorialPanel tutorialPanel = new TutorialPanel();
-                    setContentPane(tutorialPanel);
-                    getContentPane().revalidate();
-                    getContentPane().repaint();
-                    tutorialPanel.requestFocusInWindow();
-                    currentPanel = 1;
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            } else if (wantedPanel == 0 && currentPanel != 0) {
-                getContentPane().removeAll();
-                getContentPane().invalidate();
-                DeathPanel deathPanel = new DeathPanel(currentPanel);
-                setContentPane(deathPanel);
-                getContentPane().revalidate();
-                getContentPane().repaint();
-                deathPanel.requestFocusInWindow();
-                currentPanel = 0;
             }
         }
     });

@@ -1,18 +1,13 @@
-import Constants.Constants;
-
 import javax.swing.*;
 import java.io.*;
 
 public class GameApp {
 
-    public static SavedData savedData; //variable for saved data
+    public static SavedData savedData = null; //variable for saved data
     public static boolean isReadyToSave; //boolean in case of not savable moment
-    public static JFrame gameFrame = new JFrame("Game"); //set name above the frame
-    public static int gameStatus;
 
 
     public static void main(String[] args) throws InterruptedException {
-        gameStatus = 90;
         SwingUtilities.invokeLater(() -> { //safe launch
             try {
                 new GameFrame();
@@ -20,20 +15,6 @@ public class GameApp {
                 throw new RuntimeException(e);
             }
         });
-//        Thread.sleep(400);
-//        System.out.println(savedData.gameStage);
-//        new Thread(() -> {
-//            boolean isTrue = true;
-//            while (isTrue) {
-//                System.out.println("Success");
-//                try {
-//                    Thread.sleep(30);
-//                } catch (InterruptedException e) {
-//                    throw new RuntimeException(e);
-//                }
-//     }
-//        }).start();
-        savedData = null;
         isReadyToSave = true;
         //serialization, more info: https://www.tutorialspoint.com/java/java_serialization.htm
         try { //trying to open existing data (try-catch, so in case of exception we can run alternative code)
@@ -60,7 +41,7 @@ public class GameApp {
         Thread autoSave = new Thread(() -> { //auto save
             while (true) { //always
                 if (isReadyToSave) { // if it can be saved
-                    System.out.print(""); //for some reason without this it won't work (at least on my laptop)
+                    System.out.print(""); //for some reason Threads need this line of code to work more stable
                     try {
                         Thread.sleep(10000); //every 10 secs
                     } catch (InterruptedException e) {

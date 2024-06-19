@@ -17,9 +17,7 @@ public class TutorialPanel extends JPanel implements KeyListener, ActionListener
     HeavyShank heavyShank = new HeavyShank();
     SmallShank[] shanks = new SmallShank[3];
     Weapon weapon;
-    PrimaryWeapon primaryWeapon = new PrimaryWeapon(this);
-    SpecialWeapon specialWeapon = new SpecialWeapon();
-    HeavyWeapon heavyWeapon = new HeavyWeapon();
+    PrimaryWeapon primaryWeapon = new PrimaryWeapon();
     double tutorialStage;
     Timer timer;
     int BGX = -700;
@@ -299,10 +297,6 @@ public class TutorialPanel extends JPanel implements KeyListener, ActionListener
         try {
             for (Bullet bullet:primaryWeapon.bullets)
                 g.drawImage(bullet.IMG, bullet.x, bullet.y, this);
-            for (Bullet bullet:specialWeapon.bullets)
-                g.drawImage(bullet.IMG, bullet.x, bullet.y, this);
-            for (Bullet bullet:heavyWeapon.bullets)
-                g.drawImage(bullet.IMG, bullet.x, bullet.y, this);
         } catch (Exception e) {
             System.out.print("");
         }
@@ -490,8 +484,6 @@ public class TutorialPanel extends JPanel implements KeyListener, ActionListener
 
                 case KeyEvent.VK_R -> weapon.reload();
                 case KeyEvent.VK_1 -> weapon = primaryWeapon;
-                case KeyEvent.VK_2 -> weapon = specialWeapon;
-                case KeyEvent.VK_3 -> weapon = heavyWeapon;
             }
 
         }

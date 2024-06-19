@@ -16,7 +16,7 @@ public class Bullet {
 
     public void explode() {
         isFlying = false;
-        x = -100;
-        y = -100;
+        x = -10000;
+        y = -10000;
     }
 }

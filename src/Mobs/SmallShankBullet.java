@@ -9,6 +9,8 @@ import java.io.IOException;
 public class SmallShankBullet extends Bullet {
     public SmallShankBullet(int type) {
         damage = 8;
+        x = -10000;
+        y = -10000;
         try {
             switch (type) {
                 case 1 -> IMG = ImageIO.read(new File("src/Textures/Bullets/SmallShankPrimaryBullet1.png"));

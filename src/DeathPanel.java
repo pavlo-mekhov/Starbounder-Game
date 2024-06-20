@@ -30,7 +30,6 @@ public class DeathPanel extends JPanel implements KeyListener {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             GameFrame.wantedPanel = previousMode;
-            System.out.println("works");
         }
     }
     @Override
